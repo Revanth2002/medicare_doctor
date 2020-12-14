@@ -1,0 +1,141 @@
+name: medicare
+description: A new Flutter application.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+#dependency_overrides:
+  #! cloud_firestore 0.14.3
+  #! firebase_auth 0.18.3
+  #! firebase_core 0.5.2
+  #! firebase_helpers 0.2.1
+  #! firebase_storage 4.0.1
+dependencies:
+  flutter:
+    sdk: flutter
+  #firebase
+  cloud_firestore: ^0.14.3
+  firebase_storage: ^4.0.1
+  firebase_helpers: ^0.2.1
+  firebase_auth: ^0.18.3
+  firebase_core: ^0.5.2
+  #decorators
+  flutter_rounded_date_picker:
+  curved_navigation_bar:
+  splashscreen:
+  sizer:
+  auto_size_text:
+  flutter_swiper:
+  date_format:
+  table_calendar: ^2.2.1
+  random_color:
+  animated_icon_button:
+  cupertino_icons:
+  google_fonts:
+  responsive_widgets:
+  #Device
+  device_info:
+  package_info:
+  #phone,url,email,status
+  url_launcher:
+  #storage,cache
+  shared_preferences:
+  #services
+  get:
+  file_picker: ^1.4.3+1
+  image_picker:
+  path_provider:
+  http:
+  fluttertoast:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/completed-task.png
+    - assets/images/hospitalisation.png
+    - assets/images/doctorvector.png
+    - assets/images/next.png
+    - assets/images/task.png
+    - assets/images/meditation_bg.png
+    - assets/images/virus.png
+    - assets/images/patient2.jpg
+    - assets/images/patientside.jpg
+    - assets/images/onboarding.png
+    - assets/images/appointments-1.jpg
+    - assets/images/appointments-2.jpg
+    - assets/images/detail_illustration.png
+    - assets/images/notepad.PNG
+    - assets/images/completed.jpg
+    - assets/images/missed-1.jpg
+    - assets/pdf/pdf1.pdf
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+
+  fonts:
+      - family: Ubuntu
+        fonts:
+          - asset: assets/fonts/Ubuntu-Medium.ttf
+          #
+      - family: Cairo
+        fonts:
+          - asset: assets/fonts/Cairo-SemiBold.ttf
+
+
+      - family: Ubuntureg
+        fonts:
+          - asset: assets/fonts/Ubuntu-Regular.ttf
+
+      - family: Cairobold
+        fonts:
+          - asset:  assets/fonts/Cairo-Bold.ttf
+
+      - family: JosefinSans
+        fonts:
+          - asset: assets/fonts/JosefinSans-VariableFont_wght.ttf
+          #- asset: assets/fonts/JosefinSans-Italic-VariableFont_wght.ttf
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages

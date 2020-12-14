@@ -1,0 +1,17 @@
+if request.auth != null;
+
+Issue 1 : User Cache Data Flutter Firebase
+Issue 2 : Firebase Config for IOS/Web
+Issue 3 : IOS Config for file_picker
+Issue 4 : Hiding firebase storage project url
+Issue 5 : Add forgot password
+Issue 6 : Shared Preferences
+
+IOS Config:
+Need to add these for ImagePicker at ios/Runner/info.plist:
+<key>NSPhotoLibraryUsageDescription</key>
+    <string>Need to upload image</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Need to upload image</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Need to upload image</string>
