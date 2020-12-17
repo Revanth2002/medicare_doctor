@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:medicare/helper/doctorhome.dart';
+import 'package:medicare/services/firebase_services.dart';
 import 'package:medicare/ui/aboutyou.dart';
 import 'package:medicare/ui/appointments.dart';
 import 'package:medicare/ui/patients.dart';
@@ -249,6 +250,7 @@ class _DoctorHomePageMobileState extends State<DoctorHomePageMobile> {
                      ),
                      GestureDetector(
                        onTap:(){
+
                          Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>AboutYouHomePageMobile()));
                        } ,
                        child: Padding(
@@ -286,6 +288,7 @@ class _DoctorHomePageMobileState extends State<DoctorHomePageMobile> {
                                    icon: Icon(Icons.navigate_next,color: Colors.deepPurple),
                                    iconSize: 40,
                                    onPressed: (){
+
                                      Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>AboutYouHomePageMobile()));
                                    },
                                  ),

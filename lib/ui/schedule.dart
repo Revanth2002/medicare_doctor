@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'file:///D:/flutter_projects/medicare/lib/helper/scheduleevents.dart';
+import 'package:medicare/helper/scheduleevents.dart';
 import 'package:medicare/services/firebase_services.dart';
 import 'package:medicare/ui/schedule/addevent.dart';
 import 'package:intl/intl.dart';

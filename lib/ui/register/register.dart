@@ -73,9 +73,74 @@ class _RegisterMobileState extends State<RegisterMobile> {
   File fileMedical;
   String fileNameMedical ='';
   File _imageFile;
-  String fileImage = '';
+  String fileNameImage = '';
   bool _isRegistering = false;
- 
+
+  String imgUrl;
+  String qualifyUrl;
+  String licenseUrl;
+
+  validateTest() async{
+    if(fileNameMedical != "" && fileNameQualification != "" && fileNameImage != ""){
+      print("Ready to Register");
+      setState(() {
+        _isRegistering = true;
+      });
+
+      //UPLOAD FILES TO STORGAE
+      StorageReference firebaseStorageRefImage = FirebaseStorage.instance.ref().child('testing/$fileNameImage');
+      StorageUploadTask uploadProfile = firebaseStorageRefImage.putFile(_imageFile);
+      await uploadProfile.onComplete;
+      firebaseStorageRefImage.getDownloadURL().then((img){
+        setState(() {
+          imgUrl = img;
+        });
+      });
+      //Qualification file
+      StorageReference firebaseStorageRefQualify = FirebaseStorage.instance.ref().child('testing/$fileNameQualification');
+      StorageUploadTask uploadQualification = firebaseStorageRefQualify.putFile(fileQualification);
+      await uploadQualification.onComplete;
+      firebaseStorageRefQualify.getDownloadURL().then((qualify){
+        setState(() {
+          qualifyUrl = qualify;
+        });
+      });
+      //Medical License
+      StorageReference firebaseStorageRefLicense = FirebaseStorage.instance.ref().child('testing/$fileNameMedical');
+      StorageUploadTask uploadLicense = firebaseStorageRefLicense.putFile(fileMedical);
+      await uploadLicense.onComplete;
+      firebaseStorageRefLicense.getDownloadURL().then((license){
+        setState(() {
+          licenseUrl = license;
+        });
+      });
+
+      print("ImgURl : $imgUrl \n Qualify : $qualifyUrl \n License : $licenseUrl");
+
+      final imgData = {
+        'img':imgUrl,
+      };
+      await db.collection("storagetest").doc("doc").collection("image").doc().set(imgData);
+
+      final qualifyData = {
+        'qualification':qualifyUrl,
+      };
+      await db.collection("storagetest").doc("doc").collection("qualification").doc().set(qualifyData);
+
+      final licenseData = {
+        'license':licenseUrl,
+      };
+      await db.collection("storagetest").doc("doc").collection("license").doc().set(licenseData);
+
+      print("ImgURl : $imgData \n Qualify : $qualifyData \n License : $licenseData");
+      //DISPLAY MESSAGE
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> RegisteredMessage()));
+      setState(() {
+        _isRegistering =false;
+      });
+    }
+  }
+
   validate() async {
     try{
       if(formKey.currentState.validate()){
@@ -119,36 +184,51 @@ class _RegisterMobileState extends State<RegisterMobile> {
           };
           await db.collection("requestdoctor").doc(registerUid).set(data);
 
+
           //UPLOAD FILES TO STORGAE
-          StorageReference firebaseStorageRefImage = FirebaseStorage.instance.ref().child('docprofile/$registerUid/$registerUid');
+          StorageReference firebaseStorageRefImage = FirebaseStorage.instance.ref().child('docprofile/$registerUid/img/$fileNameImage');
           StorageUploadTask uploadProfile = firebaseStorageRefImage.putFile(_imageFile);
-          StorageTaskSnapshot taskSnapshot = await uploadProfile.onComplete;
-          taskSnapshot.ref.getDownloadURL().then(
-                (img) async {
-              print(img);
-              await db.collection("requestdoctor").doc(registerUid).collection("files").doc().set({'img':img});
-            },
-          );
+          await uploadProfile.onComplete;
+          firebaseStorageRefImage.getDownloadURL().then((img){
+            setState(() {
+              imgUrl = img;
+            });
+          });
           //Qualification file
-          StorageReference firebaseStorageRefQualify = FirebaseStorage.instance.ref().child('docprofile/$registerUid/$fileNameQualification');
+          StorageReference firebaseStorageRefQualify = FirebaseStorage.instance.ref().child('docprofile/$registerUid/qualification/$fileNameQualification');
           StorageUploadTask uploadQualification = firebaseStorageRefQualify.putFile(fileQualification);
-          StorageTaskSnapshot qualificationSnapshot = await uploadQualification.onComplete;
-          qualificationSnapshot.ref.getDownloadURL().then(
-                (qualify) async {
-              print(qualify);
-              await db.collection("requestdoctor").doc(registerUid).collection("files").doc().set({'qualification_file':qualify});
-            },
-          );
+          await uploadQualification.onComplete;
+          firebaseStorageRefQualify.getDownloadURL().then((qualify){
+            setState(() {
+              qualifyUrl = qualify;
+            });
+          });
           //Medical License
-          StorageReference firebaseStorageRefLicense = FirebaseStorage.instance.ref().child('docprofile/$registerUid/$fileNameMedical');
+          StorageReference firebaseStorageRefLicense = FirebaseStorage.instance.ref().child('docprofile/$registerUid/license/$fileNameMedical');
           StorageUploadTask uploadLicense = firebaseStorageRefLicense.putFile(fileMedical);
-          StorageTaskSnapshot licenseSnapshot = await uploadLicense.onComplete;
-          licenseSnapshot.ref.getDownloadURL().then(
-                (license) async {
-              print(license);
-              await db.collection("requestdoctor").doc(registerUid).collection("files").doc().set({'medical_license':license});
-            },
-          );
+          await uploadLicense.onComplete;
+          firebaseStorageRefLicense.getDownloadURL().then((license){
+            setState(() {
+              licenseUrl = license;
+            });
+          });
+
+          final imgData = {
+            'img':imgUrl,
+          };
+          await db.collection("requestdoctor").doc(registerUid).collection("image").doc().set(imgData);
+
+          final qualifyData = {
+            'qualification':qualifyUrl,
+          };
+          await db.collection("requestdoctor").doc(registerUid).collection("qualification").doc().set(qualifyData);
+
+          final licenseData = {
+            'license':licenseUrl,
+          };
+          await db.collection("requestdoctor").doc(registerUid).collection("license").doc().set(licenseData);
+
+          print("ImgURl : $imgData \n Qualify : $qualifyData \n License : $licenseData");
 
           //DISPLAY MESSAGE
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> RegisteredMessage()));
@@ -240,7 +320,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       _imageFile = image;
-      fileImage = path.basename(image.path);
+      fileNameImage = path.basename(image.path);
     });
   }
 
@@ -764,7 +844,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                                   hintStyle: hintStyle,
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                      _obscurePassword
+                                      _obscureConfirm
                                           ? Icons.visibility
                                           : Icons.visibility_off,
                                       color: Colors.deepPurpleAccent,
